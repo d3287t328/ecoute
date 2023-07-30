@@ -81,7 +81,7 @@ def main():
     transcribe.daemon = True
     transcribe.start()
 
-    print(f"[INFO] Whisper using GPU: " + str(torch.cuda.is_available()))
+    print(f"[INFO] Whisper using GPU: {str(torch.cuda.is_available())}")
 
     responder = GPTResponder()
     respond = threading.Thread(target=responder.respond_to_transcriber, args=(global_transcriber,))
@@ -97,7 +97,6 @@ def main():
     root.grid_columnconfigure(0, weight=2)
     root.grid_columnconfigure(1, weight=1)
 
-     # Add the clear transcript button to the UI
     clear_transcript_button = ctk.CTkButton(root, text="Clear Transcript", command=lambda: clear_context(global_transcriber, audio_queue, ))
     clear_transcript_button.grid(row=1, column=0, padx=10, pady=3, sticky="nsew")
 
@@ -112,7 +111,7 @@ def main():
 
     update_transcript_UI(global_transcriber, transcript_textbox)
     update_response_UI(responder, response_textbox, update_interval_slider_label, update_interval_slider, freeze_state)
- 
+
     root.mainloop()
 
 if __name__ == "__main__":
